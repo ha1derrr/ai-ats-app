@@ -15,11 +15,14 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 // Registering Routes
-import { userRouter } from "./routes/index.js";
+import { userRouter, resumeRouter, jobRouter } from "./routes/index.js";
 app.use("/user", userRouter);
+app.use("/resume", resumeRouter);
+app.use("/job", jobRouter);
 
-// Global Error Handler
+// Global Error Handler || Express Error Handler
 app.use((err, req, res, next) => {
+  console.error("ERROR: ", err);
   res.status(err.statusCode || 500).json({
     success: false,
     message: err.message || "Something went wrong",
